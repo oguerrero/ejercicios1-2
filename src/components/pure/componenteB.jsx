@@ -1,29 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Contacto } from '../../models/contacto.class'
 
-const ComponenteB = ({ contact }) => {
+const ComponenteB = ({ contact, remove, online }) => {
 
-    const [estado, setEstado] = useState(contact.conectado)
-
-    const cambiarEstado = () => {
-        setEstado(!estado)
-    }
     return (
-        <div>
-            <h2>Nombre: {contact.nombre}</h2>
-            <h3>Apellido: {contact.apellido}</h3>
-            <h4>Email: {contact.email}</h4>
-            <h5>Conectado: {estado ? 'Contacto En Línea' : 'Contacto No Disponible'}</h5>
+        <div style={{fontSize: '14px', padding: '5px'}}>
+            <p>Nombre: {contact.nombre}</p>
+            <p>Apellido: {contact.apellido}</p>
+            <p>Email: {contact.email}</p>
+            <p>Conectado: {contact.conectado ? 'Contacto En Línea' : 'Contacto No Disponible'}</p>
             <div>
-                <button onClick={cambiarEstado}>Cambiar Estado</button>
+                <button style={{marginRight: '10px'}} onClick={() => online(contact)}>Cambiar Estado</button>
+                <button onClick={() => remove(contact)}>Eliminar</button>
             </div>
         </div>
     )
 }
 
 ComponenteB.propTypes = {
-    contact: PropTypes.instanceOf(Contacto)
+    contact: PropTypes.instanceOf(Contacto),
+    remove: PropTypes.func.isRequired,
+    online: PropTypes.func.isRequired
 }
 
 export default ComponenteB
