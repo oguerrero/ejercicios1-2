@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 const container = {
     display: 'flex',
@@ -12,8 +12,8 @@ const Ejercicio101112 = () => {
     const [red, setRed] = useState(0)
     const [green, setGreen] = useState(0)
     const [blue, setBlue] = useState(0)
-    const [running, setRunning] = useState(false);
-    let repeater
+
+    const [manageInterval, setManageInterval] = useState(0)
 
     const boxStyle = {
         background: `rgb(${red}, ${green}, ${blue})`,
@@ -30,21 +30,25 @@ const Ejercicio101112 = () => {
         setBlue(Math.floor(Math.random() * 256))
     }
 
-    const handleColor = (e) => {
-        console.log(e.type)
-        if (e.type === 'mouseover' && !running) {
-            repeater = setInterval(changeColor, 200)
-        } else {
-            setRunning(!running)
-        }
+    const onChangeColor = () => {
+        return setManageInterval(setInterval(changeColor, 200))
+    }
+
+    const onStopChangeColor = () => {
+        return clearInterval(manageInterval)
+    }
+
+    const onClickChangeColor = () => {
+        return clearInterval(manageInterval)
     }
     return (
         <div style={container}>
             <div
                 style={style}
-                onMouseOver={handleColor}
-                onMouseOut={handleColor}
-                onDoubleClick={handleColor}></div>
+                onMouseOver={onChangeColor}
+                onMouseOut={onStopChangeColor}
+                onDoubleClick={onClickChangeColor}>
+            </div>
         </div>
     )
 }
