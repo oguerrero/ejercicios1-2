@@ -22,8 +22,6 @@ const Ejercicio101112 = () => {
         transition: 'all 0.1s ease'
     }
 
-    let style = boxStyle
-
     const changeColor = () => {
         setRed(Math.floor(Math.random() * 256))
         setGreen(Math.floor(Math.random() * 256))
@@ -34,20 +32,17 @@ const Ejercicio101112 = () => {
         return setManageInterval(setInterval(changeColor, 200))
     }
 
-    const onStopChangeColor = () => {
+    const stopColor = () => {
         return clearInterval(manageInterval)
     }
 
-    const onClickChangeColor = () => {
-        return clearInterval(manageInterval)
-    }
     return (
         <div style={container}>
             <div
-                style={style}
+                style={boxStyle}
                 onMouseOver={onChangeColor}
-                onMouseOut={onStopChangeColor}
-                onDoubleClick={onClickChangeColor}>
+                onMouseOut={stopColor}
+                onDoubleClick={stopColor}>
             </div>
         </div>
     )
